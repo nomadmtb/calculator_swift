@@ -54,22 +54,32 @@ class ViewController: UIViewController {
         switch currentOperation {
             // Passing a function { func } to the performOperation function.
             
-            case "✕": performOperation( { $0 * $1 })
+            case "✕": performOperation( { $0 * $1 } )
             
-            case "÷": performOperation( { $1 / $0 })
+            case "÷": performOperation( { $1 / $0 } )
             
-            case "+": performOperation( { $0 + $1 })
+            case "+": performOperation( { $0 + $1 } )
             
-            case "-": performOperation({ $0 - $1 })
+            case "-": performOperation( { $1 - $0 } )
+            
+            case "√": performBinaryOperation( { sqrt($0) } )
             
             default: break
         }
     }
     
-    // Function take a function as an arguement and performs the operation on the two items.
+    // Function takes a function as an arguement and performs the operation on the two items.
     func performOperation(operation: (Double, Double) -> Double) {
         if mOperandStack.count >= 2 {
             mDisplayValue = operation(mOperandStack.removeLast(), mOperandStack.removeLast())
+            pushEnter()
+        }
+    }
+    
+    // Function takes a function as an argument and performs the operation on the single item.
+    func performBinaryOperation(operation: Double -> Double) {
+        if mOperandStack.count >= 1 {
+            mDisplayValue = operation(mOperandStack.removeLast())
             pushEnter()
         }
     }
