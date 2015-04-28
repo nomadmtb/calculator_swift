@@ -10,6 +10,16 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var mDisplay: UILabel!
     
+    @IBAction func appendDigit(sender: UIButton) {
+        
+        // Current button that was pushed...
+        let currentDigit = sender.currentTitle
+        
+        // Print the current button to console...
+        println("Current button is \(currentDigit)")
+        
+    }
 }
 
