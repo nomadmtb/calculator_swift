@@ -42,10 +42,42 @@ class ViewController: UIViewController {
     }
     
     @IBAction func operate(sender: UIButton) {
+        
+        // Current operation that was selected...
+        let currentOperation = sender.currentTitle!
+        println("Current Operation: \(currentOperation)")
+        
+        if mTypingANumber {
+            pushEnter()
+        }
+        
+        switch currentOperation {
+            
+        case "✕": performOperation( { (opt1: Double, opt2: Double) -> Double in
+            return opt1 * opt2 })
+            
+        case "÷": performOperation( { (opt1: Double, opt2: Double) -> Double in
+            return opt1 / opt2 })
+            
+        case "+": performOperation( { (opt1: Double, opt2: Double) -> Double in
+            return opt1 + opt2 })
+            
+        case "-": performOperation({ (opt1: Double, opt2: Double) -> Double in
+            return opt1 - opt2 })
+            
+        default: break
+        }
     }
     
-    @IBAction func pushEnter(sender: UIButton) {
-        println("Enter Pressed: \(sender.currentTitle!)")
+    func performOperation(operation: (Double, Double) -> Double) {
+        if mOperandStack.count >= 2 {
+            mDisplayValue = mOperandStack.removeLast() * mOperandStack.removeLast()
+            pushEnter()
+        }
+    }
+    
+    @IBAction func pushEnter() {
+        println("Enter Pressed")
         
         // Done typing a number. Push onto stack.
         mTypingANumber = false
