@@ -56,7 +56,7 @@ class ViewController: UIViewController {
             
             case "✕": performOperation( { $0 * $1 })
             
-            case "÷": performOperation( { $0 / $1 })
+            case "÷": performOperation( { $1 / $0 })
             
             case "+": performOperation( { $0 + $1 })
             
@@ -69,7 +69,7 @@ class ViewController: UIViewController {
     // Function take a function as an arguement and performs the operation on the two items.
     func performOperation(operation: (Double, Double) -> Double) {
         if mOperandStack.count >= 2 {
-            mDisplayValue = mOperandStack.removeLast() * mOperandStack.removeLast()
+            mDisplayValue = operation(mOperandStack.removeLast(), mOperandStack.removeLast())
             pushEnter()
         }
     }
