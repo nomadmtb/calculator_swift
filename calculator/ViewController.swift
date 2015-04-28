@@ -52,23 +52,21 @@ class ViewController: UIViewController {
         }
         
         switch currentOperation {
+            // Passing a function { func } to the performOperation function.
             
-        case "✕": performOperation( { (opt1: Double, opt2: Double) -> Double in
-            return opt1 * opt2 })
+            case "✕": performOperation( { $0 * $1 })
             
-        case "÷": performOperation( { (opt1: Double, opt2: Double) -> Double in
-            return opt1 / opt2 })
+            case "÷": performOperation( { $0 / $1 })
             
-        case "+": performOperation( { (opt1: Double, opt2: Double) -> Double in
-            return opt1 + opt2 })
+            case "+": performOperation( { $0 + $1 })
             
-        case "-": performOperation({ (opt1: Double, opt2: Double) -> Double in
-            return opt1 - opt2 })
+            case "-": performOperation({ $0 - $1 })
             
-        default: break
+            default: break
         }
     }
     
+    // Function take a function as an arguement and performs the operation on the two items.
     func performOperation(operation: (Double, Double) -> Double) {
         if mOperandStack.count >= 2 {
             mDisplayValue = mOperandStack.removeLast() * mOperandStack.removeLast()
